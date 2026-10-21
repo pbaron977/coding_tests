@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.diffplug.spotless' version '8.10.2'
+}
+
+group = 'org.pablo'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+spotless {
+    // Configuración específica para archivos Java
+    java {
+        googleJavaFormat() // Usa el estilo oficial de Google para Java
+        removeUnusedImports()       // Borra automáticamente los imports innecesarios
+        trimTrailingWhitespace()    // Quita los espacios vacíos al final de las líneas
+        endWithNewline()            // Asegura que el archivo termine con una línea nueva
+    }
+}
